@@ -1,29 +1,43 @@
 #include "Cell.hpp"
 #include <iostream>
 
-const std::string gol::Cell::emptyTextureLoc = "empty.png";
-const std::string gol::Cell::filledTextureLoc = "filled.png";
-const float gol::Cell::textureSize = 32.0f;
-std::unique_ptr<sf::Texture> gol::Cell::emptyTexture(new sf::Texture());
-std::unique_ptr<sf::Texture> gol::Cell::filledTexture(new sf::Texture());
-std::unique_ptr<bool> gol::Cell::texturesLoaded(new bool);
+const sf::Color gol::Cell::DEFAULT_COLOR = sf::Color::White;
+const sf::Color gol::Cell::RUNNING_COLOR = sf::Color(183, 0, 0);
+const sf::Color gol::Cell::STOPPED_COLOR = sf::Color(73, 73, 73);
+
+const std::string gol::Cell::TEXTURE_LOC = "cell.png";
+const float gol::Cell::TEXTURE_SIZE = 32.0f;
+
+std::unique_ptr<sf::Texture> gol::Cell::texture = std::make_unique<sf::Texture>();
+std::unique_ptr<bool> gol::Cell::textureLoaded = std::make_unique<bool>();
 
 gol::Cell::Cell(float width, float height, float x, float y, bool filled)
-    : width(width), height(height), x(x), y(y), filled(filled)
 {
-    if (!(*texturesLoaded = emptyTexture->loadFromFile(emptyTextureLoc) && filledTexture->loadFromFile(filledTextureLoc)))
+    this->width = width;
+    this->height = height;
+    this->x = x;
+    this->y = y;
+    this->filled = filled;
+
+    if (!*textureLoaded)
     {
-        std::cout << "Could not load cell textures." << std::endl;
-        system("pause");
-        exit(1);
+        if (!texture->loadFromFile(TEXTURE_LOC))
+        {
+            std::cout << "Could not load cell textures." << std::endl;
+            system("pause");
+            exit(1);
+        }
+        
+        *textureLoaded = true;
     }
 
-    emptyTexture->setSmooth(true);
-    filledTexture->setSmooth(true);
+    texture->setSmooth(true);
+
+    sprite.setTexture(*texture);
 
     setFilled(filled);
     setPosition(x, y);
-    setScale(width / textureSize, height / textureSize);
+    setScale(width / TEXTURE_SIZE, height / TEXTURE_SIZE);
 }
 
 gol::Cell::~Cell()
@@ -43,11 +57,6 @@ void gol::Cell::setScale(float factorX, float factorY)
 void gol::Cell::setFilled(bool filled)
 {
     this->filled = filled;
-
-    if (filled)
-        sprite.setTexture(*filledTexture);
-    else
-        sprite.setTexture(*emptyTexture);
 }
 
 const bool gol::Cell::isFilled() const
@@ -55,7 +64,12 @@ const bool gol::Cell::isFilled() const
     return filled;
 }
 
-const sf::Sprite& gol::Cell::getSprite() const
+void gol::Cell::setColor(const sf::Color& color)
 {
-    return sprite;
+    sprite.setColor(color);
+}
+
+void gol::Cell::draw(sf::RenderWindow* window)
+{
+    window->draw(sprite);
 }
