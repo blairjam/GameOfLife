@@ -139,4 +139,3 @@ void run_2000()
 
     std::cout << "Speedup for 2000x2000 board: " << (serial_t / parallel_t) << "\n" << std::endl;
 }
-
