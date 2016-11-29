@@ -44,9 +44,11 @@ void gol::Window::run()
             handleEvents(eve);   
         }
 
+		update();
+
         if (updateClock.getElapsedTime().asMilliseconds() >= *updateDelay)
         {
-            update();
+            delayedUpdate();
             updateClock.restart();
         }
     }
@@ -54,9 +56,24 @@ void gol::Window::run()
     renderer.join();
 }
 
-void gol::Window::update()
+void gol::Window::delayedUpdate()
 {
     board->update();
+}
+
+void gol::Window::update()
+{
+	sf::Vector2i pos = sf::Mouse::getPosition(*window);
+
+	if (leftMouseButtonPressed)
+	{
+		board->handleClick(pos, true);
+	}
+
+	if (rightMouseButtonPressed)
+	{
+		board->handleClick(pos, false);
+	}
 }
 
 void gol::Window::render()
@@ -122,18 +139,10 @@ void gol::Window::handleMousePressed()
 
 void gol::Window::handleMouseReleased()
 {
-    sf::Vector2i pos = sf::Mouse::getPosition(*window);
-
-    if (leftMouseButtonPressed)
-    {
-        board->handleClick(pos, true);
-        leftMouseButtonPressed = false;
-    }
-    if (rightMouseButtonPressed)
-    {
-        board->handleClick(pos, false);
-        rightMouseButtonPressed = false;
-    }
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		leftMouseButtonPressed = false;
+	if (!sf::Mouse::isButtonPressed(sf::Mouse::Right))
+		rightMouseButtonPressed = false;
 }
 
 void gol::Window::handleKeyPressed()

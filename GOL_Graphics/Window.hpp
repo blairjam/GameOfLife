@@ -35,7 +35,8 @@ namespace gol
 
         std::unique_ptr<Board> board;
 
-        void update();
+        void delayedUpdate();
+		void update();
         void render();
         void handleEvents(sf::Event& eve);
         void handleMousePressed();
