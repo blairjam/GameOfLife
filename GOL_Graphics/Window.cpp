@@ -17,8 +17,16 @@ gol::Window::Window(uint width, uint height, std::string title, uint cellsWidth,
     rightMouseButtonPressed = false;
     spacePressed = false;
 
+	uint dispWidth = sf::VideoMode::getDesktopMode().width;
+	uint dispHeight = sf::VideoMode::getDesktopMode().height;
+	uint windowPosX = (dispWidth / 2) - (width / 2);
+	uint windowPosY = (dispHeight / 2) - (height / 2);
+
     window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title, sf::Style::Close);
-    board = std::make_unique<Board>(cellsWidth, cellsHeight, static_cast<float>(width) / static_cast<float>(cellsWidth), static_cast<float>(height) / static_cast<float>(cellsHeight));
+	window->setPosition(sf::Vector2i(windowPosX, windowPosY));
+    board = std::make_unique<Board>(cellsWidth, cellsHeight, 
+									static_cast<float>(width) / static_cast<float>(cellsWidth), 
+									static_cast<float>(height) / static_cast<float>(cellsHeight));
 }
 
 gol::Window::~Window()
@@ -32,8 +40,6 @@ void gol::Window::run()
     renderer = std::thread([this] { render(); });
 
     sf::Clock updateClock;
-
-    // Handle game logic here.
     while (window->isOpen())
     {
         *updateDelay = updateDelayMultiplier * updateDelayMultiplier;
@@ -161,17 +167,13 @@ void gol::Window::handleKeyPressed()
         }
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Equal))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Equal) && updateDelayMultiplier < MAX_UPDATE_DELAY_MULT)
     {
-        std::cout << "Plus: " << updateDelayMultiplier << std::endl;
-        if (updateDelayMultiplier < MAX_UPDATE_DELAY_MULT)
             updateDelayMultiplier++;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Dash))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Dash) && updateDelayMultiplier > MIN_UPDATE_DELAY_MULT)
     {
-        std::cout << "Minus: " << updateDelayMultiplier << std::endl;
-        if (updateDelayMultiplier > MIN_UPDATE_DELAY_MULT)
             updateDelayMultiplier--;
     }
 }

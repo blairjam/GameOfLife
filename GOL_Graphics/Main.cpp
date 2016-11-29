@@ -4,8 +4,8 @@
 const int WIDTH = 800;
 const int HEIGHT = 800;
 const std::string TITLE = "GoL";
-const int CELLS_W = 40;
-const int CELLS_H = 40;
+const int CELLS_W = 800;
+const int CELLS_H = 800;
 
 int main()
 {

@@ -19,6 +19,7 @@ gol::Cell::Cell(float width, float height, float x, float y, bool filled)
     this->y = y;
     this->filled = filled;
 
+	// Load the texture in only once. Each cell will use the same texture.
     if (!*textureLoaded)
     {
         if (!texture->loadFromFile(TEXTURE_LOC))

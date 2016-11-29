@@ -3,6 +3,7 @@
 #include <vector>
 #include <thread>
 #include <mutex>
+#include <unordered_map>
 #include "GOLTypes.hpp"
 #include "Cell.hpp"
 
@@ -29,8 +30,9 @@ namespace gol
 
         std::vector<std::vector<Cell>> cells;       
         std::mutex cellLock;
-        //std::thread updater;
         
+		void createRow(float posY, std::unordered_map<uint, std::vector<Cell>>* set, uint rowNum);
+		void updateRow(uint rowNum, std::vector<UpdatedCell>* updatedCells);
         const bool& shouldCellLive(uint x, uint y);
         const bool& shouldCellDie(uint x, uint y);
         const uint& numberCellNeighbors(uint x, uint y);

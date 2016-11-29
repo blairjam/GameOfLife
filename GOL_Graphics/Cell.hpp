@@ -36,5 +36,9 @@ namespace gol
         const bool isFilled() const;
         void setColor(const sf::Color& color);
         void draw(sf::RenderWindow* window);
+		float getY() const
+		{
+			return y;
+		}
     };
 }
