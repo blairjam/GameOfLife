@@ -4,7 +4,7 @@
 #include <memory>
 #include <SFML\Graphics.hpp>
 
-namespace gol
+namespace ht
 {
     class Cell
     {

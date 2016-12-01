@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameOfLife", "GameOfLife\Ga
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GOL_Graphics", "GOL_Graphics\GOL_Graphics.vcxproj", "{9730A532-E4AB-42A7-A0FC-1D54DC665A12}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HeatTransfer", "HeatTransfer\HeatTransfer.vcxproj", "{5AD6FD49-C37A-4280-948D-3398EAA1331C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{9730A532-E4AB-42A7-A0FC-1D54DC665A12}.Release|x64.Build.0 = Release|x64
 		{9730A532-E4AB-42A7-A0FC-1D54DC665A12}.Release|x86.ActiveCfg = Release|Win32
 		{9730A532-E4AB-42A7-A0FC-1D54DC665A12}.Release|x86.Build.0 = Release|Win32
+		{5AD6FD49-C37A-4280-948D-3398EAA1331C}.Debug|x64.ActiveCfg = Debug|x64
+		{5AD6FD49-C37A-4280-948D-3398EAA1331C}.Debug|x64.Build.0 = Debug|x64
+		{5AD6FD49-C37A-4280-948D-3398EAA1331C}.Debug|x86.ActiveCfg = Debug|Win32
+		{5AD6FD49-C37A-4280-948D-3398EAA1331C}.Debug|x86.Build.0 = Debug|Win32
+		{5AD6FD49-C37A-4280-948D-3398EAA1331C}.Release|x64.ActiveCfg = Release|x64
+		{5AD6FD49-C37A-4280-948D-3398EAA1331C}.Release|x64.Build.0 = Release|x64
+		{5AD6FD49-C37A-4280-948D-3398EAA1331C}.Release|x86.ActiveCfg = Release|Win32
+		{5AD6FD49-C37A-4280-948D-3398EAA1331C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

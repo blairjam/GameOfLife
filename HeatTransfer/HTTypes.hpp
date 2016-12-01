@@ -3,7 +3,7 @@
 #include <vector>
 #include "Cell.hpp"
 
-namespace gol
+namespace ht
 {
     using uint = unsigned int;
 
