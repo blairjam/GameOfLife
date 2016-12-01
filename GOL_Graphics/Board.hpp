@@ -1,21 +1,11 @@
 #pragma once
 
-#include <vector>
 #include <thread>
-#include <mutex>
-#include <unordered_map>
 #include "GOLTypes.hpp"
 #include "Cell.hpp"
 
 namespace gol
 {
-    struct UpdatedCell
-    {
-        uint x;
-        uint y;
-        bool filled;
-    };
-
     class Board
     {
     private:
@@ -28,11 +18,10 @@ namespace gol
 
         volatile bool updaterRunning;
 
-        std::vector<std::vector<Cell>> cells;       
-        std::mutex cellLock;
+        CellGroup cells;
         
-		void createRow(float posY, std::unordered_map<uint, std::vector<Cell>>* set, uint rowNum);
-		void updateRow(uint rowNum, std::vector<UpdatedCell>* updatedCells);
+		void createRow(float posY, uint rowNum);
+		void updateRow(uint rowNum, UpdatedCellGroup& updatedCells);
         const bool& shouldCellLive(uint x, uint y);
         const bool& shouldCellDie(uint x, uint y);
         const uint& numberCellNeighbors(uint x, uint y);
